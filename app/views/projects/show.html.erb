@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Preview path:</b>
+  <%= @project.preview_path %>
+</p>
+
+<p>
+  <b>Thumbnail path:</b>
+  <%= @project.thumbnail_path %>
+</p>
+
+<p>
+  <b>Client name:</b>
+  <%= @project.client_name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @project.description %>
+</p>
+
+<p>
+  <b>Stack:</b>
+  <%= @project.stack %>
+</p>
+
+<p>
+  <b>Teaser:</b>
+  <%= @project.teaser %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>

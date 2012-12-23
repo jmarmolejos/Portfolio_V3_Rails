@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Hey Jose, </h1>
+    <p>
+      <%= @email[:user_name] %> (<%= @email[:from] %>) sent you a message from your website.<br/>
+    </p>
+    <blockquote style="border-left:1px solid #E5E5E5; padding-left: 10px;">
+      <%= @email[:message] %>
+    </blockquote>
+    
+  </body>
+</html>

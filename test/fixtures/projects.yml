@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  preview_path: MyString
+  thumbnail_path: MyString
+  client_name: MyString
+  description: MyString
+  stack: MyString
+  teaser: MyString
+
+two:
+  preview_path: MyString
+  thumbnail_path: MyString
+  client_name: MyString
+  description: MyString
+  stack: MyString
+  teaser: MyString

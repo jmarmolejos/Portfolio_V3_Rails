@@ -1,0 +1,202 @@
+<script>
+$(function(){
+        
+        // Setup hashchange
+        $(window).hashchange(function(){
+                var hash = window.location.hash.replace( '#/', '' );
+                
+                var route = hash.split('/');
+                
+                var func = Controller[route[0]];
+                if (func) {
+                        func(hash);
+                };
+        })
+        
+        // Open modal with selected work piece
+        $('ul.work-list li a, ul#site-nav li a').click(function(){
+                Utils.changeHash ( $(this).attr('href') );
+                return false;
+        });
+        
+        $('a.works-page').live('click', function(){
+                Utils.changeHash ( $(this).attr('href') );
+                return false;
+        })
+        
+        // Handle mouse over/out on thumbnails
+        $('ul.work-list li').hover(function(){
+                var info = $(this).find('p.info');
+                info.stop().animate({ top: 80 }, 600, 'easeOutQuart')
+        }, function(){
+                var info = $(this).find('p.info');
+                info.stop().animate({ top: 145 }, 400, 'easeInQuart')
+        })
+        
+        // Binding the window to the modal's close event, if the user closes the modal windows then he's back at the site's home
+        $(window).bind('reveal:close', function(){
+                window.location.hash = "/home";
+        })
+        
+        // Setting up validation and message sending
+        $('#contact form').validate({
+                submitHandler: function(form) {
+                        Utils.showSpinner();
+                        
+                        $(form).ajaxSubmit({success:function(){
+                                Utils.hideSpinner();
+                                $('#email-thank-you').reveal();
+                        },
+                        resetForm: true})
+                },
+                messages: {
+                        name: "I really would like to know your name",
+                        email: "If I'm going to reply, you have to give me a valid email address",
+                        message: "Come on, don't be shy"
+                }
+        });
+        
+        $('#send-button').click(function(){
+                $('#contact form').submit();
+        })
+        
+        $(window).hashchange();
+})
+</script>
+
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-1785345-3']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+
+<div id="top">
+			<div class="ui-module">
+				<h1>Jos&eacute; Marmolejos 
+					<span>Web Apps Developer</span></h1>
+					
+				<h2>Web Apps Developer and Former UI Designer working from a warm place in the Caribbean. I work with the .Net stack and Ruby On Rails, because of my designer's background I have a passion for UX related work.</h2>
+				<ul id='site-nav'>
+					<li><a class="current" href="content/work">Work</a></li>
+					<li><a href="content/about">About Me</a></li>
+					<li><a href="content/contact">Contact Info</a></li>
+				</ul>
+			</div>
+		</div>
+		
+                <div class="ui-module">
+                
+		<div id="work" class="ui-module">
+			
+			<div id="works-wrapper">
+				<div id="scroller">
+					<ul class="work-list">
+					
+                                        
+                                        
+                                        <% @projects.each do |project| %>
+                                        <li>
+                                          <div class="list-item-wrapper">
+                                                  <a href="<%= project.preview_path %>">
+                                                          <img src="/<%= project.thumbnail_path %>" />
+                                                  </a>
+                                                  
+                                                  <p class="info">
+                                                          <strong>Client:</strong> <%= project.client_name %><br/>
+                                                          <strong>Work Done:</strong> <%= project.teaser %>
+                                                  </p>
+                                          </div>
+                                          
+                                        </li>
+                                      <% end %>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="ui-module content ui-hide" id='about'>
+			<div class='inner'><h3>About me</h3>
+			
+				<div class="inner-text">
+					<p>After doing the agency dance for a while I&#39;ve shifted my focus to line of business apps. Agency work is fun and innovative for sure, yet sometimes it&#39;s more about being creative for creativity&#39;s sake than creating a useful product. Nothing wrong with that tho, I just prefer to work on long lasting and recurrent experiences than hit and run campaigns with short life spans.</p>
+
+<p>While most of the work is done in the back-end enforcing business rules and accessing / manipulating data it&#39;s with the front-end, hand crafting the User Experience where I have the most fun. On the server side I work with the . Net stack, favoring MVC over webforms and Entity Framework (Code First) as the core of my data access strategy. I've also been working (and loving it!) with Ruby on Rails mainly for APIs work, and also this site itself. For the browser the usual suspects: html, css and javascript (jQuery intensive).</p>
+
+<p>Right now I&#39;m looking for freelance / contractor jobs, I&#39;d like to spend some time working on my own to better organize my time and move a few project ideas closer to reality. I&#39;m not completely opposed to being hired, given a good offer it&#39;s very probable I&#39;ll end up taking it; but given the option, I&#39;d take a freelance contract any day.</p>
+				</div>
+			
+			</div>
+		</div>
+		
+		<div class="ui-module content ui-hide" id='contact'>
+			<div class="inner">
+				<h3>Contact me</h3>
+				
+				<div>
+					<form action="/contact/post_form" method="POST">
+						<div>
+							<label>Name</label>
+							<input type="text" id="name" name="name" class="required" />
+						</div>
+						
+						<div>
+							<label>Email</label>
+							<input type="text" id="email" name="email" class="required email" />
+						</div>
+						
+						<div>
+							<label>Your (brief) message</label>
+							<textarea id="message" name="message" class="required" ></textarea>
+						</div>
+						
+						<a id="send-button">Send Message</a>
+					</form>
+				</div>
+				
+				<div>
+					<p>
+						<strong>Email:</strong>jmarmolejos@uxworkshop.net<br />
+						<strong>Mobile:</strong> 829 601 6362
+					</p>
+				</div>
+				
+				<div class="clear"></div>
+				
+			</div>
+		</div>
+		
+		
+		
+		
+                </div>
+                
+                <div id="footer" class="ui-module ui-hide">
+			<a>jmarmolejos(at) uxworkshop (dot) net</a> <br />
+			829 601 6362
+			
+		</div>
+		
+		
+                <div id="work-modal" class="reveal-modal">
+		     <h1></h1>
+		     <div id="work-img-big" style="width: auto"></div>
+		     <a class="close-reveal-modal">&#215;</a>
+		</div>
+		
+		
+                
+                <div id='email-thank-you' class="reveal-modal">
+			<h3>Thank you!</h3>
+		     <p>Rock on my friend, I'll reply back as soon as I can.</p>
+		     <a class="close-reveal-modal">&#215;</a>
+		</div>
+		
+		<div class='spinner' style="display:none"><img src="/assets/ui/spinner.gif" /></div>
